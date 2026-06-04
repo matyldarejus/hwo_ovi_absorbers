@@ -1,17 +1,5 @@
 # extract_cos_halos.py
 # Extracts OVI measurements from COS-Halos via pyigm and saves to HDF5
-# for comparison with SIMBA-C mock spectra results.
-#
-# Output HDF5 contains per-galaxy:
-#   - OVI equivalent width (rest-frame, Angstrom)
-#   - OVI column density log N (cm^-2)
-#   - Detection flag (1=detection, 0=upper limit)
-#   - Impact parameter rho (kpc, physical)
-#   - Stellar mass log M* (log Msun)
-#   - log sSFR (log yr^-1), -14.0 for quenched
-#   - Redshift
-#   - SF/GV/Q category
-#   - cgm_id string
 
 import numpy as np
 import h5py
@@ -62,7 +50,7 @@ def get_galaxy_properties(cgm):
     """
     gal = cgm.galaxy
 
-    # Stellar mass in log Msun in COS-Halos pyigm objects
+    # Stellar mass in log Msun
     try:
         log_mstar = float(gal.stellar_mass)
     except Exception:
@@ -76,7 +64,7 @@ def get_galaxy_properties(cgm):
 
     # Convert SFR to sSFR
     try:
-        sfr_data = gal.sfr                 # tuple: ('yes'/'no', value, indicator)
+        sfr_data = gal.sfr              
         sfr      = float(sfr_data[1])
         mstar_lin = 10.0 ** log_mstar      # convert log to linear for division
         if sfr > 0 and mstar_lin > 0:
@@ -87,10 +75,9 @@ def get_galaxy_properties(cgm):
         log_ssfr = -14.0
 
     # Virial radius
-
     try:
         r200 = float(gal.rvir)  # in kpc/h
-        print("Virial radius found!")
+        #print("Virial radius found!")
     except Exception:
         r200 = np.nan
 
@@ -99,15 +86,14 @@ def get_galaxy_properties(cgm):
 
 def extract_cos_halos(out_file):
     """
-    Load COS-Halos, extract all relevant quantities, and save to HDF5.
+    Load COS-Halos, extract all relevant quantities, and save to HDF5
     """
-
     print('Loading COS-Halos...')
     survey = COSHalos()
     survey.load_sys()
     print(f'  Loaded {len(survey.cgm_abs)} CGM systems')
 
-    # Get EW and column density table for OVI 1031 in one shot
+    # Get EW and column density table for OVI 1031
     ovi_tbl = survey.trans_tbl('OVI 1031')
 
     records = []
@@ -117,7 +103,7 @@ def extract_cos_halos(out_file):
 
         log_mstar, log_ssfr, z, r200 = get_galaxy_properties(cgm)
         if np.isnan(log_mstar) or np.isnan(z):
-            print(f'  [SKIP] {cgm_id}: missing mass or redshift')
+            print(f'  !!! {cgm_id}: missing mass or redshift')
             continue
 
         rho_kpc = get_impact_parameter(cgm)
