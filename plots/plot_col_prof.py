@@ -84,8 +84,8 @@ if __name__ == '__main__':
 
     fig, ax = plt.subplots(1, 1)
 
-    mass_lines = [Line2D([0, 1], [0, 1], color=mass_colors[i])
-                  for i in range(len(mass_colors))]
+    mass_lines = [Line2D([0, 1], [0, 1], color=mass_colors[i], ls=':', marker=marker, lw=1.5)
+              for i in range(len(mass_colors))]
     leg1 = ax.legend(mass_lines, mass_plot_titles, loc=3, fontsize=20)
     ax.add_artist(leg1)
 

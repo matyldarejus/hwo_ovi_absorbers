@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     ssfr_lines = []
     for i in range(len(ssfr_colors)):
-        ssfr_lines.append(Line2D([0,1],[0,1], color=ssfr_colors[i]))
+        ssfr_lines.append(Line2D([0,1],[0,1], color=ssfr_colors[i], lw=2))
     leg = ax[0].legend(ssfr_lines, ssfr_labels, loc=1, fontsize=20)
     ax[0].add_artist(leg)
 
@@ -110,9 +110,9 @@ if __name__ == '__main__':
         ax[i].axvline(plot_data['completeness'], c='k', ls=':', lw=1.5)
         ax[i+1].axvline(plot_data['completeness'], c='k', ls=':', lw=1.5)
 
-        ax[i].plot(plot_data['plot_logN'], plot_data[f'cddf_sf'], c=ssfr_colors[1], ls='-', lw=1)
-        ax[i].plot(plot_data['plot_logN'], plot_data[f'cddf_gv'], c=ssfr_colors[2], ls='-', lw=1)
-        ax[i].plot(plot_data['plot_logN'], plot_data[f'cddf_q'], c=ssfr_colors[3], ls='-', lw=1)
+        ax[i].plot(plot_data['plot_logN'], plot_data[f'cddf_sf'], c=ssfr_colors[1], ls='-', lw=1.5)
+        ax[i].plot(plot_data['plot_logN'], plot_data[f'cddf_gv'], c=ssfr_colors[2], ls='-', lw=1.5)
+        ax[i].plot(plot_data['plot_logN'], plot_data[f'cddf_q'], c=ssfr_colors[3], ls='-', lw=1.5)
 
         ax[i+1].errorbar(plot_data['plot_logN'] - 0.05, (plot_data[f'cddf_sf'] - plot_data[f'cddf_all']), yerr=plot_data[f'cddf_all_sf_err'],
                             xerr=xerr, c=ssfr_colors[1], capsize=4, ls='-', lw=1.3)

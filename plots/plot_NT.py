@@ -136,7 +136,7 @@ if __name__ == '__main__':
     
     plot_order = np.arange(len(N[sf_mask]))
     np.random.shuffle(plot_order)
-    im = ax[0].scatter(N[sf_mask][plot_order], T[sf_mask][plot_order], c=all_r[sf_mask][plot_order], cmap=cmap, norm=norm, s=1.5)
+    im = ax[0].scatter(N[sf_mask][plot_order], T[sf_mask][plot_order], c=all_r[sf_mask][plot_order], cmap=cmap, norm=norm, s=3)
     bin_cent,ymean,ysiglo,ysighi,ndata = pm.runningmedian(N[sf_mask*inner_mask*silly_mask], T[sf_mask*inner_mask*silly_mask], stat='median')
     ax[0].plot(bin_cent[ndata>nmin], ymean[ndata>nmin], c='plum', lw=2, ls='--')
     bin_cent,ymean,ysiglo,ysighi,ndata = pm.runningmedian(N[sf_mask*~inner_mask*silly_mask], T[sf_mask*~inner_mask*silly_mask], stat='median')
@@ -144,7 +144,7 @@ if __name__ == '__main__':
 
     plot_order = np.arange(len(N[gv_mask]))
     np.random.shuffle(plot_order)
-    im = ax[1].scatter(N[gv_mask][plot_order], T[gv_mask][plot_order], c=all_r[gv_mask][plot_order], cmap=cmap, norm=norm, s=1.5)
+    im = ax[1].scatter(N[gv_mask][plot_order], T[gv_mask][plot_order], c=all_r[gv_mask][plot_order], cmap=cmap, norm=norm, s=3)
     bin_cent,ymean,ysiglo,ysighi,ndata = pm.runningmedian(N[gv_mask*inner_mask*silly_mask], T[gv_mask*inner_mask*silly_mask], stat='median')
     ax[1].plot(bin_cent[ndata>nmin], ymean[ndata>nmin], c='plum', lw=2, ls='--')
     bin_cent,ymean,ysiglo,ysighi,ndata = pm.runningmedian(N[gv_mask*~inner_mask*silly_mask], T[gv_mask*~inner_mask*silly_mask], stat='median')
@@ -152,7 +152,7 @@ if __name__ == '__main__':
     plot_order = np.arange(len(N[q_mask]))
 
     np.random.shuffle(plot_order)
-    im = ax[2].scatter(N[q_mask][plot_order], T[q_mask][plot_order], c=all_r[q_mask][plot_order], cmap=cmap, norm=norm, s=1.5)
+    im = ax[2].scatter(N[q_mask][plot_order], T[q_mask][plot_order], c=all_r[q_mask][plot_order], cmap=cmap, norm=norm, s=3)
     bin_cent,ymean,ysiglo,ysighi,ndata = pm.runningmedian(N[q_mask*inner_mask*silly_mask], T[q_mask*inner_mask*silly_mask], stat='median')
     ax[2].plot(bin_cent[ndata>nmin], ymean[ndata>nmin], c='plum', lw=2, ls='--')
     bin_cent,ymean,ysiglo,ysighi,ndata = pm.runningmedian(N[q_mask*~inner_mask*silly_mask], T[q_mask*~inner_mask*silly_mask], stat='median')
@@ -166,7 +166,7 @@ if __name__ == '__main__':
         ax[i].set_xlabel(r'${\rm log }(N / {\rm cm}^{2})$')
         ax[i].set_xlim(np.min(N_min), 16)
         ax[i].set_ylim(3, 7)
-        ax[i].axhline(Tth, ls=':', c='k', lw=1)
+        ax[i].axhline(Tth, ls=':', c='k', lw=1.5)
     
 
     fig.subplots_adjust(right=0.82, wspace=0.25, hspace=0.25)

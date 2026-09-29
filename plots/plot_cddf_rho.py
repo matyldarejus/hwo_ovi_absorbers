@@ -57,7 +57,7 @@ if __name__ == '__main__':
     ssfr_labels = ['All galaxies', 'Star-forming', 'Green valley', 'Quenched']
     ssfr_colors = ['dimgrey', cb_blue, cb_green, cb_red]
     rho_ls = ['-', '--', ':']
-    rho_lw = [1.5, 2, 2.5]
+    rho_lw = [2, 2.5, 3]
     logN_min = 11.
     x = [0.79, 0.74, 0.77, 0.75, 0.755, 0.76]
     ncells = 16
@@ -74,8 +74,8 @@ if __name__ == '__main__':
 
     rho_lines = []
     for i in range(len(rho_ls)):
-        rho_lines.append(Line2D([0,1],[0,1], color=ssfr_colors[0], ls=rho_ls[i], lw=rho_lw[i]))
-    leg = ax[0].legend(rho_lines, rho_labels, loc='lower right', fontsize=20)
+        rho_lines.append(Line2D([0,1],[0,1], color='black', ls=rho_ls[i], lw=rho_lw[i]))
+    leg = ax[0].legend(rho_lines, rho_labels, loc='lower right', fontsize=20, title='Impact parameter',title_fontsize=20)
     ax[0].add_artist(leg)
 
     i = 0

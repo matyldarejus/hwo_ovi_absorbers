@@ -144,13 +144,13 @@ if __name__ == '__main__':
 
         for b, bin_label in enumerate(mass_bin_labels):
 
-            ax[l][b].plot(plot_data['fr200'], plot_data[f'{bin_label}_sf_med'], ls='-', c=cb_blue, label='Star-forming', lw=2)
+            ax[l][b].plot(plot_data['fr200'], plot_data[f'{bin_label}_sf_med'], ls='-', c=cb_blue, label='Star-forming', lw=2.5)
             ax[l][b].fill_between(plot_data['fr200'], plot_data[f'{bin_label}_sf_per75'], plot_data[f'{bin_label}_sf_per25'], alpha=0.3, color=cb_blue)
 
-            ax[l][b].plot(plot_data['fr200'], plot_data[f'{bin_label}_gv_med'], ls='-', c=cb_green, label='Green valley', lw=2)
+            ax[l][b].plot(plot_data['fr200'], plot_data[f'{bin_label}_gv_med'], ls='--', c=cb_green, label='Green valley', lw=2.5)
             ax[l][b].fill_between(plot_data['fr200'], plot_data[f'{bin_label}_gv_per75'], plot_data[f'{bin_label}_gv_per25'], alpha=0.3, color=cb_green)
 
-            ax[l][b].plot(plot_data['fr200'], plot_data[f'{bin_label}_q_med'], ls='-', c=cb_red, label='Quenched', lw=2)
+            ax[l][b].plot(plot_data['fr200'], plot_data[f'{bin_label}_q_med'], ls=:-', c=cb_red, label='Quenched', lw=2.5)
             ax[l][b].fill_between(plot_data['fr200'], plot_data[f'{bin_label}_q_per75'], plot_data[f'{bin_label}_q_per25'], alpha=0.3, color=cb_red)
 
             ax[l][b].set_ylim(-3., 0.)

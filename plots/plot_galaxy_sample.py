@@ -118,11 +118,11 @@ if __name__ == '__main__':
 
     plot_dir = '/home/matylda/data/plots/'
 
-    plt.plot(sm_line, sf_line, ls='--', lw=1.3, c='dimgray')
-    plt.plot(sm_line, q_line, ls='--', lw=1.3, c='dimgray')
-    plt.text(11.56, sf_height[snap_index], 'SF')
-    plt.text(11.55, gv_height[snap_index], 'GV')
-    plt.text(11.575, q_height[snap_index], 'Q')
+    plt.plot(sm_line, sf_line, ls='--', lw=1.8, c='dimgray')
+    plt.plot(sm_line, q_line, ls='--', lw=1.8, c='dimgray')
+    plt.text(11.56, sf_height[snap_index], 'SF', fontsize=14)
+    plt.text(11.55, gv_height[snap_index], 'GV', fontsize=14)
+    plt.text(11.575, q_height[snap_index], 'Q', fontsize=14)
     for i in range(nbins_m + 1):
         plt.axvline(min_m+i*delta_m, ls=':', lw=1.5, c='darkgray')
     im = plt.scatter(gal_sm, np.log10(gal_sfr + 1e-3), c=gal_Tcgm, cmap=cmap, s=5, marker='o', vmin=5, vmax=7)

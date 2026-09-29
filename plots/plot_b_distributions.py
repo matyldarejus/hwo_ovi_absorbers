@@ -93,10 +93,10 @@ if __name__ == '__main__':
     # log-spaced bins from min to 150
     bins = np.logspace(np.log10(b_pos.min()), np.log10(150), 40)
 
-    ax.hist(b_all[b_all > 0], bins=bins, histtype='step', color=cb_grey, lw=2, label='Total')
-    ax.hist(b_sf[b_sf > 0], bins=bins, histtype='step', color=cb_blue, lw=1.8, label='Star forming')
-    ax.hist(b_gv[b_gv > 0], bins=bins, histtype='step', color=cb_green, lw=1.8, label='Green valley')
-    ax.hist(b_q[b_q > 0], bins=bins, histtype='step', color=cb_red, lw=1.8, label='Quenched')
+    ax.hist(b_all[b_all > 0], bins=bins, histtype='step', color=cb_grey, lw=2.5, ls='-', label='Total', density=True)
+    ax.hist(b_sf[b_sf > 0], bins=bins, histtype='step', color=cb_blue, lw=2, ls='-', label='Star forming', density=True)
+    ax.hist(b_gv[b_gv > 0], bins=bins, histtype='step', color=cb_green, lw=2, ls='--', label='Green valley', density=True)
+    ax.hist(b_q[b_q > 0], bins=bins, histtype='step', color=cb_red, lw=2, ls=':', label='Quenched', density=True)
 
     ax.set_xlabel(r'$b\ [{\rm km\ s^{-1}}]$')
     ax.set_ylabel('Count')

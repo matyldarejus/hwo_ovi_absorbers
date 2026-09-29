@@ -4,17 +4,23 @@
 
 # pycache
 
-analyse_spectra_sh/__pycache__
-make_spectra_sh/__pycache__
-simba_c/analyse_spectra_sh/__pycache__
-simba_c/make_spectra_sh/__pycache__
+simba_c/analyse_spectra/__pycache__
+simba_c/make_spectra/__pycache__
+tools/__pycache__/
 
 # checkpoints
 
-simba_c/make_spectra_sh/.ipynb_checkpoints
-simba_c/analyse_spectra_sh/.ipynb_checkpoints
-make_spectra_sh/.ipynb_checkpoints
-analyse_spectra_sh/.ipynb_checkpoints
+simba_c/make_spectra/.ipynb_checkpoints
+simba_c/analyse_spectra/.ipynb_checkpoints
 .ipynb_checkpoints
 plots/.ipynb_checkpoints
-tools/__pycache__/
+tools/.ipynb_checkpoints
+
+# duplicates / deprecated code
+
+analyse_spectra_sh/
+make_spectra_sh/
+
+# other
+
+simba_c/make_spectra/diagnostics.py

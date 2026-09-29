@@ -88,7 +88,6 @@ if __name__ == '__main__':
     # Convert to Z/Zsolar
     Z_mass_weighted_sol = np.log10(Z_mass_weighted) - np.log10(zsolar)
     Z_sfr_weighted_sol  = np.log10(Z_sfr_weighted)  - np.log10(zsolar)
-    Z_stellar_sol       = np.log10(Z_stellar)       - np.log10(zsolar)
     Z_cgm_mw_sol        = np.log10(Z_cgm_mw)        - np.log10(zsolar)
     Z_cgm_tw_sol        = np.log10(Z_cgm_tw)        - np.log10(zsolar)
  
@@ -194,13 +193,6 @@ if __name__ == '__main__':
     ax.plot(bin_cent[ndata > nmin], ymean[ndata > nmin],
             c='#9B59B6', lw=2.5, ls='-.', label='ISM mass-weighted (median)')
  
-    # Stellar metallicity
-    ax.scatter(gal_mass, Z_stellar_sol, c='#E8A838', s=15, alpha=0.7,
-               marker='*', label='Stellar', zorder=3)
-    bin_cent, ymean, ysiglo, ysighi, ndata = pm.runningmedian(
-        gal_mass, Z_stellar_sol, stat='median')
-    ax.plot(bin_cent[ndata > nmin], ymean[ndata > nmin],
-            c='#E8A838', lw=2.5, ls='-.', label='Stellar (median)')
  
     ax.axhline(0, ls=':', c='k', lw=1.5, label=r'$Z_{\odot}$')
     ax.set_xlabel(r'$\log\ (M_{\star} / M_{\odot})$')

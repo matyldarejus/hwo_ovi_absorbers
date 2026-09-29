@@ -69,7 +69,7 @@ if __name__ == '__main__':
     # Legend setup
     rho_labels = ['All CGM', 'Major Axis', 'Minor Axis']
     rho_colors = [cb_grey, cb_blue, cb_red]
-    rho_ls = ['-', '--', '--']
+    rho_ls = ['-', '-', '--']
     rho_lines = [Line2D([0, 1], [0, 1], color=c, ls=ls, lw=1.5)
                  for c, ls in zip(rho_colors, rho_ls)]
     leg = ax[0].legend(rho_lines, rho_labels, loc=1, fontsize=20)
@@ -124,7 +124,7 @@ if __name__ == '__main__':
                        cddf_plot - plot_data['cddf_all'],
                        c=az_colors[az_idx], ls=az_ls[az_idx], lw=1.5)
             ax[1].errorbar(plot_data['plot_logN'] + offsets[az_idx], (cddf_plot - plot_data[f'cddf_all']), yerr=cddf_plot_err,
-                            xerr=xerr, c=az_colors[az_idx], capsize=4, ls='-', lw=1.3)
+                            xerr=xerr, c=az_colors[az_idx], capsize=4, ls='--', lw=1.3)
 
         # Axes & labels
         ax[0].set_xlim(logN_min, 17)
