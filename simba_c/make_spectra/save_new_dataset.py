@@ -1,14 +1,30 @@
-# Script for creating subsets of particles from gizmo sims
-# Based on scripts by Sydney Lower and Chris Lovell
-# https://gist.github.com/christopherlovell/5a504c2c9d26efb6e073324d80c755a6 
+"""
+Build a reduced snapshot containing only the gas particles near the LOS.
 
+Merges the per-galaxy `plist_{gal_id}` particle selections (indices into the
+snapshot's gas array, from the LOS particle selection step) in
+{model}_{wind}_{snap}_particle_selection.h5 into one sorted, unique list, then
+writes a new snapshot-format file, {model}_{wind}_{snap}.hdf5, holding only
+those PartType0 particles. The original Header is copied with NumPart_ThisFile
+and NumPart_Total updated. All PartType0 fields are copied, subsampled to the
+selected particles; other particle types are not written.
 
+Run after the LOS particle selection for all galaxies, and before spectrum
+generation, i.e. get_galaxy_sample --> 
+                    select_los_particles --> 
+                        save_new_dataset (you are here!) --> 
+                            
+
+Based on scripts by Sydney Lower and Chris Lovell
+https://gist.github.com/christopherlovell/5a504c2c9d26efb6e073324d80c755a6 
+"""
 import h5py
 import caesar
 import numpy as np
 import sys
 
 def make_new_dataset(snapfile, output_file, plist, verbose):
+    
     ignore_fields = []
     with h5py.File(snapfile, 'r') as in_file:
 
@@ -74,9 +90,6 @@ if __name__ == '__main__':
     
     output_file = f'{output_dir}{model}_{wind}_{snap}.hdf5'
     particle_file = f'{output_dir}{model}_{wind}_{snap}_particle_selection.h5'
-
-    #output_file = f'{output_dir}{model}_{wind}_{snap}_extras.hdf5'
-    #particle_file = f'{output_dir}{model}_{wind}_{snap}_particle_selection_extras.h5'
 
     plist = np.array([])
     with h5py.File(particle_file, 'r') as f:

@@ -1,3 +1,16 @@
+"""
+Basically nearly the same functionality as vpfit from Pygad, updated to match 
+code from Romeel's fork but likely out-of-date now. It works (I think!).
+
+Voigt-profile fitting of absorption line spectra from SIMBA lines-of-sfight.
+
+Reads a pre-generated spectrum .h5 file (fluxes, noise, velocities, redshift,
+lambda_rest, gal_velocity_pos, temperature, ion_name, etc.), fits Voigt
+profiles to the absorption around the target galaxy, and writes the fitted
+line list back into the same file under `line_list`
+"""
+
+
 from pygad.analysis.absorption_spectra import lines, Gaussian, Lorentzian, Voigt, line_profile
 from pygad.units import Unit, UnitArr, UnitQty, UnitScalar
 import pygad.environment as environment

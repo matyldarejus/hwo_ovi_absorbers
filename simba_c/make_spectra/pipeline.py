@@ -1,3 +1,12 @@
+"""
+Run Pygad spectrum fitter on each line-of-sight
+
+This is basically just an orchestrator for generate_spectra.
+
+Ran for each galaxy individually, hence best ran via a bash file (sub_pipeline).
+"""
+
+
 # Main pipeline script to run pygad on each LOS
 # Run using sub_line_pipeline.sh and sub_pipeline.sh
 
@@ -32,7 +41,6 @@ num = int(sys.argv[4])
 line = sys.argv[5]
 lambda_rest = float(re.findall(r'\d+', line)[0])
 
-#snapfile = f'/home/rad/data/m25n256/s50/snap_m25n256_151.hdf5'
 snapfile = f'/disk04/mrejus/sh/samples/{model}_{wind}_{snap}.hdf5'
 s = pg.Snapshot(snapfile)
 

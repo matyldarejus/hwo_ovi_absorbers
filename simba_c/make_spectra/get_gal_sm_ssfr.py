@@ -1,3 +1,9 @@
+"""
+Build a 2D histogram of log M* vs log sSFR (Gyr^-1) for central galaxies
+and save it (plus bin edges) to {model}_{wind}_{snap}_sm_ssfr.h5,
+used as the background density for SF/GV/Q plots.
+"""
+
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 import numpy as np

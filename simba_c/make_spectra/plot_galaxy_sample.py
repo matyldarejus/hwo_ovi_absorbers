@@ -1,3 +1,13 @@
+"""
+Plot the SIMBA galaxy sample in the log M* vs log SFR plane, coloured by CGM temperature.
+
+Save to /home/matylda/plots/{model}_{wind}_{snap}_Tcgm_new.png
+
+Same as the sSFR version, but in SFR space (Msun/yr). SF/GV/Q boundaries are
+diagonal lines of slope 1 in log SFR-log M*, offset by quench_thresh(z) and 1 dex
+below it. Region labels are placed at hardcoded per-snapshot heights. The GSWLC
+running median is shown for comparison.
+"""
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import h5py

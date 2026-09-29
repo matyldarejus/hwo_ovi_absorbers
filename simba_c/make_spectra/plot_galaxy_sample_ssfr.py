@@ -1,3 +1,15 @@
+"""
+Plot the galaxy sample in the log M* vs log sSFR plane, coloured by CGM temperature.
+
+Save to {sample_dir}{model}_{wind}_{snap}_Tcgm_ssfr.pdf
+
+Shows the sSFR-M* distribution of the SIMBA sample (points, coloured by log T_CGM)
+over a greyscale 2D histogram of all central galaxies, alongside the GSWLC
+observational running median. Horizontal dashed lines mark the star-forming /
+green valley / quenched boundaries, and dotted vertical lines mark the stellar mass bins
+used in the analysis.
+"""
+
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import h5py

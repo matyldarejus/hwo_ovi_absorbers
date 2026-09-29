@@ -1,3 +1,12 @@
+"""
+Obtain metallicity statistics from the simulation snapshot for 
+each sampled galaxy and write them into a sample 
+file {sample_dir}{model}_{wind}_{snap}_galaxy_sample.h5.
+
+Necessary for any z plots.
+"""
+
+
 import numpy as np
 import h5py
 import sys

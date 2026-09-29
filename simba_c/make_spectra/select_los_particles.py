@@ -1,9 +1,22 @@
-# Script to identify LOS particles for a given selected galaxy, for LOS parallel to the z axis of the simulation
-# Run using sub_los_particles.sh
+"""
+Select the gas particles that contribute to the lines of sight around a galaxy.
 
-# for each galaxy in the sample, identify particles that contribute towards the line of sight using the smoothing length of each particle
-# save new dataset containing only these particles using Chris's approach
+For one galaxy in the sample, places nlos no. sightlines (parallel to the
+simulation z-axis) at each of the five impact parameters (0.25-1.25 r200),
+evenly spaced in azimuth. A gas particle is taken to contribute to a
+sightline if its projected (x-y) distance from it is smaller than its
+smoothing length, so its SPH kernel overlaps the sightline. Decoupled wind
+particles (DelayTime != 0) are excluded.
 
+The union of contributing particles over all sightlines is saved as
+`plist_{gal_id}`, as indices into the snapshot's gas particle array, in
+{model}_{wind}_{snap}_particle_selection.h5. Spectrum generation can then load
+only these particles rather than the full snapshot, saving memory. Galaxies that already have
+a `plist_` entry are skipped.
+
+Run straight after selecting a galaxy sample (get_galaxy_sample.py) using 
+sub_select_los_particles.sh. 
+"""
 from pygadgetreader import readsnap
 import numpy as np
 from numba import njit
@@ -15,10 +28,14 @@ import sys
 
 @njit
 def get_los_particles(los, gas_pos, hsml, wind_mask):
-    x_dist = np.abs(los[0] - gas_pos[:, 0])
-    y_dist = np.abs(los[1] - gas_pos[:, 1])
-    hyp_sq = x_dist**2 + y_dist**2
-    dist_mask = hyp_sq < hsml**2
+    """
+    Choose particles within the line of sight which overlap the LOS
+    and are not wind particles
+    """
+    x_dist = np.abs(los[0] - gas_pos[:, 0]) # x offset of particle from LOS
+    y_dist = np.abs(los[1] - gas_pos[:, 1]) # y offset
+    hyp_sq = x_dist**2 + y_dist**2 
+    dist_mask = hyp_sq < hsml**2 # offset needs to be smaller than the smoothing length
     partids_los = np.arange(len(hsml))[dist_mask * wind_mask]
     return partids_los
 
@@ -27,7 +44,7 @@ if __name__ == '__main__':
     model = sys.argv[1]
     wind = sys.argv[2]
     snap = sys.argv[3]
-    sample_gal = int(sys.argv[4]) # supply the gal id that we want from command line]
+    sample_gal = int(sys.argv[4]) # allows to run via bash file 
     nlos = int(sys.argv[5])
 
     sqrt2 = np.sqrt(2.)
@@ -42,9 +59,6 @@ if __name__ == '__main__':
     
     sample_file = f'{sample_dir}{model}_{wind}_{snap}_galaxy_sample.h5'
     particle_file = f'{sample_dir}{model}_{wind}_{snap}_particle_selection.h5'
-
-    #sample_file = f'{sample_dir}{model}_{wind}_{snap}_galaxy_sample_extras.h5'
-    #particle_file = f'{sample_dir}{model}_{wind}_{snap}_particle_selection_extras.h5'
 
     sim =  caesar.load(f'{data_dir}Groups/{model}_{snap}.hdf5')
     h = sim.simulation.hubble_constant
@@ -67,37 +81,13 @@ if __name__ == '__main__':
 
     partids = np.array([])
 
-
-    """ The below code is meant for 8 lines of sight sampling only -- needed to be changed to get 
-    better comparison for Habitable Worlds 
-    for i in range(nbins_fr200):
-        los = np.array([pos[:2].copy(), ]*8)
-        rho = r200 * fr200[i]
-        los[0][0] += rho
-        los[1][0] += (rho / sqrt2); los[1][1] += (rho / sqrt2)
-        los[2][1] += rho
-        los[3][0] -= (rho / sqrt2); los[3][1] += (rho / sqrt2)
-        los[4][0] -= rho
-        los[5][0] -= (rho / sqrt2); los[5][1] -= (rho / sqrt2)
-        los[6][1] -= rho
-        los[7][0] += (rho / sqrt2); los[7][1] -= (rho / sqrt2)
-
-        for l in los:
-            partids_los = get_los_particles(l, gas_pos, hsml, wind_mask)
-            partids = np.append(partids, partids_los)
-            del partids_los
-
-    """
-
-    # Code for multiple lines of sight follows
-
-    for i in range(nbins_fr200):
-        rho = r200 * fr200[i]
-        thetas = np.linspace(0, 2*np.pi, nlos, endpoint=False)
+    for i in range(nbins_fr200): # for no. impact parameters
+        rho = r200 * fr200[i] # projected distance of the sightline from the galaxy 
+        thetas = np.linspace(0, 2*np.pi, nlos, endpoint=False) # get no. angles rel. to z-axis
         for theta in thetas:
             los = pos[:2].copy()
-            los[0] += rho * np.cos(theta)
-            los[1] += rho * np.sin(theta)
+            los[0] += rho * np.cos(theta) # x
+            los[1] += rho * np.sin(theta) # y
             partids_los = get_los_particles(los, gas_pos, hsml, wind_mask)
             partids = np.append(partids, partids_los)
             

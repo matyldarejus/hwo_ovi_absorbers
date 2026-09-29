@@ -1,6 +1,11 @@
-# Select 12 Simba galaxies in each of our SFR-Mstar bins
-# Mask out the regions we want, using a simple sSFR cut
-# Save the galaxy properties for our sample galaxies
+"""
+Pick a galaxy sample based on star-formation rate.
+
+Choose a random sample of 12 galaxies in each region, load in properties from the simulation
+snapshot, and save to a sample file {sample_dir}{model}_{wind}_{snap}_galaxy_sample.h5.
+
+First step in the absorption analysis pipeline.
+"""
 
 import caesar
 import yt

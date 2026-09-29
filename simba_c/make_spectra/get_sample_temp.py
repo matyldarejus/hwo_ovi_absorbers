@@ -1,5 +1,11 @@
-# Saving out the halo temperature properties of the sample galaxies
+"""
+Obtain the CGM temperatures and calculate the masses of the hot and cool gas
+for each galaxy in a loaded sample file {sample_dir}{model}_{wind}_{snap}_galaxy_sample.h5.
 
+Write these properties back into the sample file. 
+
+Run for CGM temperature plots -- uneccessary if only examining lines.
+"""
 import numpy as np
 import h5py
 import sys

@@ -1,3 +1,11 @@
+"""
+Runs the vpfitter for the spectra generated for different
+different sightlines.
+
+Requires pipeline.py to be run for the whole galaxy sample / selected galaxies.  
+"""
+
+
 import os
 import sys
 import numpy as np
@@ -16,12 +24,9 @@ if __name__ == '__main__':
     chisq_unacceptable = 25
 
     spec_dir = f'/disk04/mrejus/sh/normal/{model}_{wind}_{snap}_hm12/'
-    #spec_dir = f'./test/'
     listdir = os.listdir(spec_dir)
-    spec_file = [i for i in listdir if ion and azimuth in i] # Check how many repeats this does, if I need to run it once or over x number of galaxies
+    spec_file = [i for i in listdir if ion and azimuth in i]
     
-    #print(listdir)
-
     for my_file in spec_file:
         spec = Spectrum(f'{spec_dir}{my_file}')
         print('Fitting lines in: %s' % my_file)
