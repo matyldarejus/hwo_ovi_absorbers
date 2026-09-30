@@ -1,4 +1,3 @@
-# HWO OVI Absorbers
 All the code I needed to carry out my senior honours project 'Finding the Missing Baryons with NASA's Next Generation Telescope' supervised by Prof Romeel Dave at the University of Edinburgh. The purpose of the project was to generate and fit mock absorption spectra of OVI lines to simulate the observations taken by the upcoming Habitable Worlds Observatory, and predict the conclusions on baryonic makeup of CGM based on them.   
 
 The main code is located in the `simba_c` folder, consisting of main two parts:
